@@ -35,8 +35,8 @@ class Home extends Component
             $imgHeight = $img->getImageHeight();
             $watermarkWidth = $watermark->getImageWidth();
             $watermarkHeight = $watermark->getImageHeight();
-            $x = $imgWidth - $watermarkWidth - 10;
-            $y = $imgHeight - $watermarkHeight - 10;
+            $x = ($imgWidth - $watermarkWidth) / 2;
+            $y = ($imgHeight - $watermarkHeight) / 2;
             $img->compositeImage($watermark, Imagick::COMPOSITE_OVER, $x, $y);
             $watermarkedImagePath = 'images/watermarked_' . $this->image->getClientOriginalName();
             $img->writeImage(storage_path('app/private/' . $watermarkedImagePath));
@@ -56,23 +56,7 @@ class Home extends Component
             $errorMessage = 'An error occurred while applying the watermark. ';
             $errorMessage .= 'Please check the file formats and sizes, and try again. ';
             $errorMessage .= 'Error details: ' . $e->getMessage();
-
             session()->flash('error', $errorMessage);
         }
-
-
-        // $this->validate([
-        //     'image' => ['required', 'max:2024', 'image'],
-        //     'watermark' => ['required', 'max:2024', 'image']
-        // ]);
-
-        // $imagePath = $this->image->store('images');
-
-        // $image = Image::create([
-        //     'image' => $this->image->store('image'),
-        //     'watermark' => $this->watermark->store('watermark'),
-        // ]);
-
-        // session()->flash('success', $image);
     }
 }
