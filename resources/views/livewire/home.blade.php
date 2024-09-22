@@ -1,16 +1,18 @@
 <section class="h-screen flex items-center justify-center" x-data="{ opacity: {{ $opacity }} }">
     <form wire:submit.prevent="addWatermark" enctype="multipart/form-data" class="flex flex-col max-w-2xl w-full">
-        @if ($image)
-            <h1 class="text-2xl mb-3 text-white">Preview</h1>
-            <div class="bg-contain bg-center flex items-center justify-center h-[600px] w-full bg-no-repeat"
-                style="background-image: url({{ $image->temporaryUrl() }})">
-                @if ($watermark)
-                    <img src="{{ $watermark->temporaryUrl() }}" width="150px" :style="{ 'opacity': opacity / 100 }">
-                @endif
-            </div>
-        @else
-            <h1 class="mb-3 text-white font-semibold text-2xl" title="Unlimited Free Watermark Image Generator">
-                Unlimited Free Watermark Image Generator</h1>
+        @if (!$result)
+            @if ($image)
+                <h1 class="text-2xl mb-3 text-white">Preview</h1>
+                <div class="bg-contain bg-center flex items-center justify-center h-[600px] w-full bg-no-repeat"
+                    style="background-image: url({{ $image->temporaryUrl() }})">
+                    @if ($watermark)
+                        <img src="{{ $watermark->temporaryUrl() }}" width="150px" :style="{ 'opacity': opacity / 100 }">
+                    @endif
+                </div>
+            @else
+                <h1 class="mb-3 text-white font-semibold text-2xl" title="Unlimited Free Watermark Image Generator">
+                    Unlimited Free Watermark Image Generator</h1>
+            @endif
         @endif
 
         @session('error')
@@ -18,7 +20,7 @@
         @endsession
 
         @if ($result)
-            <h1 class="text-2xl mb-3 text-white">Result</h1>
+            <h1 class="text-2xl mb-3 text-white">Generated Image</h1>
             <h2 class="text-yellow-300 mb-2">Save it or you will never get the link again 😁</h2>
             <img class="mb-6 rounded-lg overflow-hidden" src="{{ $result }}">
         @endif

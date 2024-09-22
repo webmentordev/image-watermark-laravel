@@ -25,21 +25,22 @@ class Home extends Component
         try {
             $this->validate([
                 'image' => ['required', 'image', 'max:2024'],
-                'watermark' => ['required', 'image', 'max:2024'],
-                'opacity' => ['required', "min:1", "max:100"],
+                'watermark' => ['required', 'image', 'max:2024']
             ]);
             $imagePath = $this->image->store('images');
             $watermarkPath = $this->watermark->store('watermarks');
             $img = new Imagick(storage_path('app/private/' . $imagePath));
             $watermark = new Imagick(storage_path('app/private/' . $watermarkPath));
-            $watermark->setImageAlphaChannel(Imagick::ALPHACHANNEL_SET);
-            $watermark->evaluateImage(Imagick::EVALUATE_MULTIPLY, $this->opacity / 100, Imagick::CHANNEL_ALPHA);
             $imgWidth = $img->getImageWidth();
             $imgHeight = $img->getImageHeight();
-            $watermarkWidth = $watermark->getImageWidth();
-            $watermarkHeight = $watermark->getImageHeight();
-            $x = ($imgWidth - $watermarkWidth) / 2;
-            $y = ($imgHeight - $watermarkHeight) / 2;
+            $desiredWatermarkWidth = $imgWidth * 0.20;
+            $aspectRatio = $watermark->getImageHeight() / $watermark->getImageWidth();
+            $newWatermarkHeight = $desiredWatermarkWidth * $aspectRatio;
+            $watermark->resizeImage($desiredWatermarkWidth, $newWatermarkHeight, Imagick::FILTER_LANCZOS, 1);
+            $watermark->setImageAlphaChannel(Imagick::ALPHACHANNEL_SET);
+            $watermark->evaluateImage(Imagick::EVALUATE_MULTIPLY, $this->opacity / 100, Imagick::CHANNEL_ALPHA);
+            $x = ($imgWidth - $watermark->getImageWidth()) / 2;
+            $y = ($imgHeight - $watermark->getImageHeight()) / 2;
             $img->compositeImage($watermark, Imagick::COMPOSITE_OVER, $x, $y);
             $watermarkedImagePath = 'images/watermarked_' . $this->image->getClientOriginalName();
             $img->writeImage(storage_path('app/private/' . $watermarkedImagePath));
