@@ -25,6 +25,8 @@ class Home extends Component
                 'image' => ['required', 'image', 'max:2024'],
                 'watermark' => ['required', 'image', 'max:2024']
             ]);
+
+            dd('Image');
             $imagePath = $this->image->store('images');
             $watermarkPath = $this->watermark->store('watermarks');
             $img = new Imagick(storage_path('app/' . $imagePath));
