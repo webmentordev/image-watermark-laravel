@@ -2,12 +2,13 @@
 
 namespace App\Livewire;
 
-use Log;
+
 use Imagick;
 use Exception;
 use App\Models\Image;
 use Livewire\Component;
 use Livewire\WithFileUploads;
+use Illuminate\Support\Facades\Log;
 
 class Home extends Component
 {
