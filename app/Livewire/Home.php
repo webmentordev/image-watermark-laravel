@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Log;
 class Home extends Component
 {
     use WithFileUploads;
-    public $watermark, $image, $result, $opacity = 50;
+    public $watermark, $image, $result, $opacity = 50, $ratio = 30;
 
     public function render()
     {
@@ -25,7 +25,9 @@ class Home extends Component
         try {
             $this->validate([
                 'image' => ['required', 'image', 'max:2024'],
-                'watermark' => ['required', 'image', 'max:2024']
+                'watermark' => ['required', 'image', 'max:2024'],
+                'opacity' => ['required', 'min:1', 'max:100'],
+                'ratio' => ['required', 'min:1', 'max:100']
             ]);
             $imagePath = $this->image->store('images');
             $watermarkPath = $this->watermark->store('watermarks');
@@ -33,7 +35,7 @@ class Home extends Component
             $watermark = new Imagick(storage_path('app/private/' . $watermarkPath));
             $imgWidth = $img->getImageWidth();
             $imgHeight = $img->getImageHeight();
-            $desiredWatermarkWidth = $imgWidth * 0.30;
+            $desiredWatermarkWidth = $imgWidth * ($this->ratio / 100);
             $aspectRatio = $watermark->getImageHeight() / $watermark->getImageWidth();
             $newWatermarkHeight = $desiredWatermarkWidth * $aspectRatio;
             $watermark->resizeImage($desiredWatermarkWidth, $newWatermarkHeight, Imagick::FILTER_LANCZOS, 1);
