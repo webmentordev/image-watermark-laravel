@@ -9,11 +9,12 @@
         @endsession
 
         @if ($result)
-            <img class="mb-3 rounded-lg overflow-hidden" src="{{ $result }}">
+            <h2 class="text-yellow-300 mb-2">Save it or you will never get the link again 😁</h2>
+            <img class="mb-6 rounded-lg overflow-hidden" src="{{ $result }}">
         @endif
 
         <div class="w-full mb-4 flex flex-col">
-            <label class="label-text mb-1" for="image">Pick an image file</label>
+            <label class="label-text mb-1" for="image">Pick an image file (2024KB Max)</label>
             <input type="file" id="image" wire:model="image"
                 class="file-input file-input-bordered file-input-info w-full max-w-xs" accept="image/*" required />
             @error('image')
@@ -22,7 +23,7 @@
         </div>
 
         <div class="w-full mb-4 flex flex-col">
-            <label class="label-text mb-1" for="image">Pick your watermark</label>
+            <label class="label-text mb-1" for="image">Pick your watermark (2024KB Max)</label>
             <input type="file" id="image" wire:model="watermark"
                 class="file-input file-input-bordered file-input-info w-full max-w-xs" accept="image/*" required />
             @error('watermark')
