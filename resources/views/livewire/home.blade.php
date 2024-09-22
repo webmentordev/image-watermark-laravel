@@ -4,6 +4,10 @@
             <img class="mb-3 rounded-lg overflow-hidden" src="{{ $image->temporaryUrl() }}">
         @endif
 
+        @session('error')
+            <x-error message="{{ $value }}" />
+        @endsession
+
         <div class="w-full mb-4 flex flex-col">
             <label class="label-text mb-1" for="image">Pick an image file</label>
             <input type="file" id="image" wire:model="image"

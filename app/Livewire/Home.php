@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use Log;
 use Imagick;
 use Exception;
 use App\Models\Image;
@@ -29,19 +30,13 @@ class Home extends Component
             $watermarkPath = $this->watermark->store('watermarks');
             $img = new Imagick(storage_path('app/' . $imagePath));
             $watermark = new Imagick(storage_path('app/' . $watermarkPath));
-
             $imgWidth = $img->getImageWidth();
             $imgHeight = $img->getImageHeight();
             $watermarkWidth = $watermark->getImageWidth();
             $watermarkHeight = $watermark->getImageHeight();
-
             $x = $imgWidth - $watermarkWidth - 10;
             $y = $imgHeight - $watermarkHeight - 10;
-
             $img->compositeImage($watermark, Imagick::COMPOSITE_OVER, $x, $y);
-
-            dd("Compose");
-
             $watermarkedImagePath = 'images/watermarked_' . $this->image->getClientOriginalName();
             $img->writeImage(storage_path('app/' . $watermarkedImagePath));
             $img->clear();
@@ -56,7 +51,8 @@ class Home extends Component
             $this->result = config('app.url') . '/storage/' . $image->watermarked_image;
             session()->flash('success', 'Watermark applied successfully!');
         } catch (Exception $e) {
-            return $e->getMessage();
+            Log::error('Watermarking error: ' . $e->getMessage());
+            session()->flash('error', 'An error occurred while applying the watermark. Please try again.');
         }
 
 
