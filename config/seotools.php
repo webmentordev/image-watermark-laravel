@@ -28,7 +28,9 @@ return [
             'url'         => null,
             'type'        => false,
             'site_name'   => false,
-            'images'      => [],
+            'images'      => [
+                config('app.url') . '/images/generate-free-unlimited-images-with-watermark.png'
+            ],
         ],
     ],
     'twitter' => [
@@ -42,8 +44,10 @@ return [
             'title'       => 'Unlimited Free Watermark Image Generator',
             'description' => 'Create Unlimited Free Watermark Images with Our Easy-to-Use Generator - Perfect for Branding and Personalization!',
             'url'         => null,
-            'type'        => 'WebPage',
-            'images'      => [],
+            'type'        => 'SoftwareApplication',
+            'images'      => [
+                config('app.url') . '/images/generate-free-unlimited-images-with-watermark.png'
+            ],
         ],
     ],
 ];
