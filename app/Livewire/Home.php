@@ -44,16 +44,20 @@ class Home extends Component
             $img->destroy();
             $watermark->clear();
             $watermark->destroy();
-            $image = Image::create([
+            $imageRecord = Image::create([
                 'image' => $imagePath,
                 'watermark' => $watermarkPath,
                 'watermarked_image' => $watermarkedImagePath,
             ]);
-            $this->result = config('app.url') . '/storage/' . $image->watermarked_image;
+            $this->result = config('app.url') . '/storage/' . $imageRecord->watermarked_image;
             session()->flash('success', 'Watermark applied successfully!');
         } catch (Exception $e) {
             Log::error('Watermarking error: ' . $e->getMessage());
-            session()->flash('error', 'An error occurred while applying the watermark. Please try again.');
+            $errorMessage = 'An error occurred while applying the watermark. ';
+            $errorMessage .= 'Please check the file formats and sizes, and try again. ';
+            $errorMessage .= 'Error details: ' . $e->getMessage();
+
+            session()->flash('error', $errorMessage);
         }
 
 
