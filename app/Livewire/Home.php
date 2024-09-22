@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Log;
 class Home extends Component
 {
     use WithFileUploads;
-    public $watermark, $image, $result;
+    public $watermark, $image, $result, $opacity = 50;
 
     public function render()
     {
@@ -25,12 +25,15 @@ class Home extends Component
         try {
             $this->validate([
                 'image' => ['required', 'image', 'max:2024'],
-                'watermark' => ['required', 'image', 'max:2024']
+                'watermark' => ['required', 'image', 'max:2024'],
+                'opacity' => ['required', "min:1", "max:100"],
             ]);
             $imagePath = $this->image->store('images');
             $watermarkPath = $this->watermark->store('watermarks');
             $img = new Imagick(storage_path('app/private/' . $imagePath));
             $watermark = new Imagick(storage_path('app/private/' . $watermarkPath));
+            $watermark->setImageAlphaChannel(Imagick::ALPHACHANNEL_SET);
+            $watermark->evaluateImage(Imagick::EVALUATE_MULTIPLY, $this->opacity / 100, Imagick::CHANNEL_ALPHA);
             $imgWidth = $img->getImageWidth();
             $imgHeight = $img->getImageHeight();
             $watermarkWidth = $watermark->getImageWidth();
