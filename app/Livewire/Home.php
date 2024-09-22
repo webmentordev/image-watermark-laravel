@@ -29,7 +29,7 @@ class Home extends Component
             ]);
             $imagePath = $this->image->store('images');
             $watermarkPath = $this->watermark->store('watermarks');
-            $img = new Imagick(storage_path('app/private' . $imagePath));
+            $img = new Imagick(storage_path('app/private/' . $imagePath));
             $watermark = new Imagick(storage_path('app/private/' . $watermarkPath));
             $imgWidth = $img->getImageWidth();
             $imgHeight = $img->getImageHeight();
