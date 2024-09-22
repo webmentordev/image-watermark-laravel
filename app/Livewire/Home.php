@@ -33,7 +33,7 @@ class Home extends Component
             $watermark = new Imagick(storage_path('app/private/' . $watermarkPath));
             $imgWidth = $img->getImageWidth();
             $imgHeight = $img->getImageHeight();
-            $desiredWatermarkWidth = $imgWidth * 0.20;
+            $desiredWatermarkWidth = $imgWidth * 0.30;
             $aspectRatio = $watermark->getImageHeight() / $watermark->getImageWidth();
             $newWatermarkHeight = $desiredWatermarkWidth * $aspectRatio;
             $watermark->resizeImage($desiredWatermarkWidth, $newWatermarkHeight, Imagick::FILTER_LANCZOS, 1);

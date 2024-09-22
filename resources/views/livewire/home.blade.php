@@ -6,7 +6,7 @@
                 <div class="bg-contain bg-center flex items-center justify-center h-[600px] w-full bg-no-repeat"
                     style="background-image: url({{ $image->temporaryUrl() }})">
                     @if ($watermark)
-                        <img src="{{ $watermark->temporaryUrl() }}" width="150px" :style="{ 'opacity': opacity / 100 }">
+                        <img src="{{ $watermark->temporaryUrl() }}" width="250px" :style="{ 'opacity': opacity / 100 }">
                     @endif
                 </div>
             @else
