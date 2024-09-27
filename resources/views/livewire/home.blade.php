@@ -2,7 +2,7 @@
     <form wire:submit.prevent="addWatermark" enctype="multipart/form-data" class="flex flex-col max-w-2xl w-full">
         @if (!$result)
             @if ($image)
-                <h1 class="text-3xl mb-3 font-semibold text-white">Preview</h1>
+                <h1 class="text-3xl mb-3 font-semibold dark:text-white">Preview</h1>
                 <div class="bg-contain bg-center flex items-center justify-center h-[600px] w-full bg-no-repeat"
                     style="background-image: url({{ $image->temporaryUrl() }})">
                     @if ($watermark)
@@ -11,7 +11,7 @@
                     @endif
                 </div>
             @else
-                <h1 class="mb-4 text-white font-semibold text-3xl text-center"
+                <h1 class="mb-4 dark:text-white font-semibold text-3xl text-center"
                     title="Unlimited Free Watermark Image Generator">
                     Unlimited Free Watermark Image Generator</h1>
             @endif
@@ -21,8 +21,8 @@
         @endsession
 
         @if ($result)
-            <h1 class="text-3xl mb-3 text-white font-semibold">Generated Image</h1>
-            <h2 class="text-yellow-300 mb-2">Save it or you will never get the link again 😁</h2>
+            <h1 class="text-3xl mb-3 dark:text-white font-semibold">Generated Image</h1>
+            <h2 class="dark:text-yellow-300 text-blue-700 mb-2">Save it or you will never get the link again 😁</h2>
             <img class="mb-6 rounded-lg overflow-hidden" src="{{ $result }}">
         @endif
 
@@ -68,10 +68,14 @@
                 @enderror
             </div>
         </div>
-        <p class="text-yellow-300 mb-3">Final Result can be different from the preview</p>
-        <button type="submit" class="btn btn-block mb-3" wire:loading.remove wire:target="addWatermark">Start
+        <p class="dark:text-yellow-300 text-blue-700 mb-3">Final Result can be different from the preview
+        </p>
+        <button type="submit"
+            class="btn btn-block mb-3 dark:hover:bg-blue-600 dark:hover:text-white bg-black text-black dark:bg-white dark:text-black"
+            wire:loading.remove wire:target="addWatermark">Start
             processing</button>
-        <button class="btn" wire:loading wire:target="addWatermark" disabled>
+        <button class="btn bg-black text-black dark:bg-white dark:text-black" wire:loading wire:target="addWatermark"
+            disabled>
             <span class="loading loading-spinner"></span>
             loading
         </button>
