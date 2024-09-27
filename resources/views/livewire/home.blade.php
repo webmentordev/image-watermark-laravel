@@ -71,7 +71,7 @@
         <p class="dark:text-yellow-300 text-blue-700 mb-3">Final Result can be different from the preview
         </p>
         <button type="submit"
-            class="btn btn-block mb-3 dark:hover:bg-blue-600 dark:hover:text-white bg-black text-black dark:bg-white dark:text-black"
+            class="btn btn-block mb-3 dark:hover:bg-blue-600 dark:hover:text-white bg-black text-white dark:bg-white dark:text-black"
             wire:loading.remove wire:target="addWatermark">Start
             processing</button>
         <button class="btn bg-black text-black dark:bg-white dark:text-black" wire:loading wire:target="addWatermark"
