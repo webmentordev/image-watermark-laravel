@@ -17,36 +17,38 @@
     <link rel="shortcut icon" href="{{ asset('images/image.png') }}" type="image/x-icon">
 
     {{-- Google Analytics --}}
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-JGJG3BQZT5"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
+    @if (config('app.env') !== 'local')
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-JGJG3BQZT5"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
 
-        function gtag() {
-            dataLayer.push(arguments);
-        }
-        gtag('js', new Date());
+            function gtag() {
+                dataLayer.push(arguments);
+            }
+            gtag('js', new Date());
 
-        gtag('config', 'G-JGJG3BQZT5');
-    </script>
+            gtag('config', 'G-JGJG3BQZT5');
+        </script>
 
 
-    <!-- Google Tag Manager -->
-    <script>
-        (function(w, d, s, l, i) {
-            w[l] = w[l] || [];
-            w[l].push({
-                'gtm.start': new Date().getTime(),
-                event: 'gtm.js'
-            });
-            var f = d.getElementsByTagName(s)[0],
-                j = d.createElement(s),
-                dl = l != 'dataLayer' ? '&l=' + l : '';
-            j.async = true;
-            j.src =
-                'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
-            f.parentNode.insertBefore(j, f);
-        })(window, document, 'script', 'dataLayer', 'GTM-T3T22PR4');
-    </script>
+        <!-- Google Tag Manager -->
+        <script>
+            (function(w, d, s, l, i) {
+                w[l] = w[l] || [];
+                w[l].push({
+                    'gtm.start': new Date().getTime(),
+                    event: 'gtm.js'
+                });
+                var f = d.getElementsByTagName(s)[0],
+                    j = d.createElement(s),
+                    dl = l != 'dataLayer' ? '&l=' + l : '';
+                j.async = true;
+                j.src =
+                    'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+                f.parentNode.insertBefore(j, f);
+            })(window, document, 'script', 'dataLayer', 'GTM-T3T22PR4');
+        </script>
+    @endif
     <!-- End Google Tag Manager -->
 
     <!-- Scripts -->
