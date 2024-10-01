@@ -4,8 +4,10 @@ use App\Livewire\Home;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SiteMapGenerator;
 use App\Http\Controllers\ProfileController;
+use App\Livewire\Converter;
 
 Route::get('/', Home::class)->name('home');
+Route::get('/converter', Converter::class)->name('converter');
 
 Route::get('/dashboard', function () {
     return view('dashboard');

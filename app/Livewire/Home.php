@@ -15,6 +15,16 @@ class Home extends Component
     use WithFileUploads;
     public $watermark, $image, $result, $opacity = 50, $ratio = 30;
 
+    public function rules()
+    {
+        return [
+            'image' => ['required', 'image', 'max:2024'],
+            'watermark' => ['required', 'image', 'max:2024'],
+            'opacity' => ['required', 'min:1', 'max:100'],
+            'ratio' => ['required', 'min:1', 'max:100']
+        ];
+    }
+
     public function render()
     {
         return view('livewire.home');
@@ -23,12 +33,7 @@ class Home extends Component
     public function addWatermark()
     {
         try {
-            $this->validate([
-                'image' => ['required', 'image', 'max:2024'],
-                'watermark' => ['required', 'image', 'max:2024'],
-                'opacity' => ['required', 'min:1', 'max:100'],
-                'ratio' => ['required', 'min:1', 'max:100']
-            ]);
+            $this->validate();
             $imagePath = $this->image->store('images');
             $watermarkPath = $this->watermark->store('watermarks');
             $img = new Imagick(storage_path('app/private/' . $imagePath));
