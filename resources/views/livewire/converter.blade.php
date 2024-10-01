@@ -3,14 +3,15 @@
 
         @if (count($converted))
             @foreach ($converted as $convert)
-                {{-- {{ $ }} --}}
+                <div class="p-3 bg-gray-50 dark:bg-slate-700 rounded-lg flex items-center justify-between w-full mb-4">
+                    <p class="w-[530px]">{{ $convert['name'] }}</p>
+                    <a href="{{ $convert['url'] }}" download
+                        class="py-2 px-4 bg-yellow-300 text-black font-semibold rounded-lg">Download</a>
+                </div>
             @endforeach
         @endif
 
-        <div class="p-3 bg-gray-50 dark:bg-slate-700 rounded-lg flex items-center justify-between w-full mb-4">
-            <p class="w-[530px]">Lorem ipsum dolor sit amet consectetur adipisicing</p>
-            <a href="" download class="py-2 px-4 bg-yellow-300 text-black font-semibold rounded-lg">Download</a>
-        </div>
+
 
         <div class="w-full mb-4 flex flex-col">
             <label class="label-text mb-1" for="image">Pick images (<span class="text-red-500">*</span>
