@@ -3,7 +3,7 @@
 
         @if (count($converted))
             @foreach ($converted as $convert)
-                <div class="p-3 bg-gray-50 dark:bg-slate-700 rounded-lg flex items-center justify-between w-full mb-4">
+                <div class="p-3 bg-gray-100 dark:bg-slate-700 rounded-lg flex items-center justify-between w-full mb-4">
                     <p class="w-[530px]">{{ $convert['name'] }}</p>
                     <a href="{{ $convert['url'] }}" download
                         class="py-2 px-4 bg-yellow-300 text-black font-semibold rounded-lg">Download</a>

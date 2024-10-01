@@ -18,18 +18,30 @@ class Converter extends Component
     use WithFileUploads;
 
     public $images = null, $converted = [], $type = "png";
-    public $formats = [];
+    public $formats = [
+        'png',
+        'jpg',
+        'jpeg',
+        'webp',
+        'avif',
+        'ico',
+        'eps',
+        'odd',
+        'psd',
+        'tiff',
+        'ps'
+    ];
 
     public function rules()
     {
         return [
             'images' => ['required', 'array', 'max:5'],
+            'images.*' => ['required', 'max:1024']
         ];
     }
 
     public function mount()
     {
-        $this->formats = Imagick::queryFormats();
         SEOMeta::setTitle("Unlimited Free Images Converter To Any Extension");
         SEOMeta::setDescription("Convert Unlimited Free Images to any extension for your business with Our Easy-to-Use Converter!");
         SEOMeta::setRobots("index, follow");
@@ -60,6 +72,10 @@ class Converter extends Component
 
     public function convertImages()
     {
+        if (!in_array($this->type, $this->formats)) {
+            session()->flash('error', 'Please select correct image format');
+            return;
+        }
         try {
             $this->validate();
             foreach ($this->images as $singleImage) {
