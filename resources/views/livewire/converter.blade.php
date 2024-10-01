@@ -11,18 +11,30 @@
             @endforeach
         @endif
 
-
-
         <div class="w-full mb-4 flex flex-col">
             <label class="label-text mb-1" for="image">Pick images (<span class="text-red-500">*</span>
                 1024KB
                 each)</label>
             <input type="file" id="image" wire:model.live="images" multiple
-                class="file-input file-input-bordered file-input-info w-full max-w-xs" accept="image/*" required />
+                class="file-input file-input-bordered file-input-info w-full" accept="image/*" required />
             @error('images')
                 <p class="text-red-600 py-2">{{ $message }}</p>
             @enderror
         </div>
+
+        <div class="w-full mb-4 flex flex-col">
+            <label class="label-text mb-1" for="type">Pick type to convert</label>
+            <select class="select select-success w-full">
+                <option value="png" disabled selected>PNG</option>
+                @foreach ($formats as $format)
+                    <option value="{{ strtolower($format) }}">{{ strtoupper($format) }}</option>
+                @endforeach
+            </select>
+            @error('type')
+                <p class="text-red-600 py-2">{{ $message }}</p>
+            @enderror
+        </div>
+
         <button type="submit"
             class="btn btn-block mb-3 dark:hover:bg-blue-600 dark:hover:text-white bg-black text-white dark:bg-white dark:text-black"
             wire:loading.remove wire:target="convertImages">Start

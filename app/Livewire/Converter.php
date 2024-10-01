@@ -14,6 +14,7 @@ class Converter extends Component
     use WithFileUploads;
 
     public $images = null, $converted = [], $type = "png";
+    public $formats = [];
 
     public function rules()
     {
@@ -21,6 +22,11 @@ class Converter extends Component
             'images' => ['required', 'array', 'max:5'],
             'images.*' => ['required', 'image', 'min:1024']
         ];
+    }
+
+    public function mount()
+    {
+        $this->formats = Imagick::queryFormats();
     }
 
     public function render()
