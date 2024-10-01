@@ -50,7 +50,7 @@ class Converter extends Component
                 $img->writeImage(storage_path('app/private/' . $convertedImage));
                 $img->clear();
                 $img->destroy();
-                $imageRecord = Convert::create([
+                Convert::create([
                     'image' => $imagePath,
                     'converted_image' => $convertedImage,
                 ]);
