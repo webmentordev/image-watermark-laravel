@@ -11,6 +11,10 @@
             @endforeach
         @endif
 
+        @session('error')
+            <x-error message="{{ $value }}" />
+        @endsession
+
         <div class="w-full mb-4 flex flex-col">
             <label class="label-text mb-1" for="image">Pick images (<span class="text-red-500">*</span>
                 1024KB
