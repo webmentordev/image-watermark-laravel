@@ -46,7 +46,7 @@ class Converter extends Component
                 $imagePath = $singleImage->store('converts');
                 $img = new Imagick(storage_path('app/private/' . $imagePath));
                 $img->setImageFormat($this->type);
-                $convertedImage = 'converts/converted_' . pathinfo($singleImage->getClientOriginalName(), PATHINFO_FILENAME) . '.' . $this->type;
+                $convertedImage = 'converts/converted-' . rand(9, 999999) . '-'  . pathinfo($singleImage->getClientOriginalName(), PATHINFO_FILENAME) . '.' . $this->type;
                 $img->writeImage(storage_path('app/private/' . $convertedImage));
                 $img->clear();
                 $img->destroy();
@@ -59,7 +59,6 @@ class Converter extends Component
                     'url' => config('app.url') . '/storage/' . $convertedImage
                 ];
             }
-
             session()->flash('success', 'All images have been converted!');
         } catch (Exception $e) {
             Log::error('Converting error: ' . $e->getMessage());

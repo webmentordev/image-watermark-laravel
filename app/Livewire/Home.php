@@ -49,7 +49,7 @@ class Home extends Component
             $x = ($imgWidth - $watermark->getImageWidth()) / 2;
             $y = ($imgHeight - $watermark->getImageHeight()) / 2;
             $img->compositeImage($watermark, Imagick::COMPOSITE_OVER, $x, $y);
-            $watermarkedImagePath = 'images/watermarked_' . $this->image->getClientOriginalName();
+            $watermarkedImagePath = 'images/watermarked-' . rand(9, 999999) . '-' . $this->image->getClientOriginalName();
             $img->writeImage(storage_path('app/private/' . $watermarkedImagePath));
             $img->clear();
             $img->destroy();
