@@ -44,10 +44,10 @@ class Converter extends Component
             $this->validate();
             foreach ($this->images as $singleImage) {
                 $imagePath = $singleImage->store('converts');
-                $img = new Imagick(storage_path('app/' . $imagePath));
+                $img = new Imagick(storage_path('app/private/' . $imagePath));
                 $img->setImageFormat($this->type);
                 $convertedImage = 'converts/converted_' . pathinfo($singleImage->getClientOriginalName(), PATHINFO_FILENAME) . '.' . $this->type;
-                $img->writeImage(storage_path('app/' . $convertedImage));
+                $img->writeImage(storage_path('app/private/' . $convertedImage));
                 $img->clear();
                 $img->destroy();
                 $imageRecord = Convert::create([
