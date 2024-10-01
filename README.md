@@ -20,4 +20,8 @@ sudo find /var/www/laravel -type f -exec chmod 644 {} \;
 sudo chmod -R 775 /var/www/laravel/storage /var/www/laravel/bootstrap/cache  
 **If NPM command cause problem for permissions**
 
-sudo chmod -R 755 /var/www/laravel/node_modules
+sudo chmod -R 755 /var/www/laravel/node_modules  
+  
+### Crontab
+
+0 */12 * * * cd /var/www/laravel && php artisan app:clean-db
