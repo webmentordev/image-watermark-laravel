@@ -2,12 +2,16 @@
 
 namespace App\Livewire;
 
-use App\Models\Convert;
 use Imagick;
 use Exception;
+use App\Models\Convert;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use Illuminate\Support\Facades\Log;
+use Artesaos\SEOTools\Facades\JsonLd;
+use Artesaos\SEOTools\Facades\SEOMeta;
+use Artesaos\SEOTools\Facades\OpenGraph;
+use Artesaos\SEOTools\Facades\TwitterCard;
 
 class Converter extends Component
 {
@@ -26,6 +30,22 @@ class Converter extends Component
     public function mount()
     {
         $this->formats = Imagick::queryFormats();
+        SEOMeta::setTitle("Unlimited Free Images Converter To Any Extension");
+        SEOMeta::setDescription("Convert Unlimited Free Images to any extension for your business with Our Easy-to-Use Converter!");
+        SEOMeta::setRobots("index, follow");
+        SEOMeta::addMeta("apple-mobile-web-app-title", "MarkGroupHost");
+        SEOMeta::addMeta("application-name", "MarkGroupHost");
+
+        OpenGraph::setTitle("Unlimited Free Images Converter To Any Extension");
+        OpenGraph::setDescription("Convert Unlimited Free Images to any extension for your business with Our Easy-to-Use Converter!");
+        OpenGraph::addProperty("type", "SoftwareApplication");
+        OpenGraph::addProperty("locale", "eu");
+
+        TwitterCard::setTitle("Unlimited Free Images Converter To Any Extension");
+        TwitterCard::setDescription("Convert Unlimited Free Images to any extension for your business with Our Easy-to-Use Converter!");
+
+        JsonLd::setTitle("Unlimited Free Images Converter To Any Extension");
+        JsonLd::setDescription("Convert Unlimited Free Images to any extension for your business with Our Easy-to-Use Converter!");
     }
 
     public function render()

@@ -1,4 +1,4 @@
-<section class="min-h-screen h-full py-12 flex items-center justify-center" x-data="{ opacity: {{ $opacity }}, ratio: {{ $ratio }} }">
+<section class="min-h-screen h-full py-12 px-4 flex items-center justify-center" x-data="{ opacity: {{ $opacity }}, ratio: {{ $ratio }} }">
     <form wire:submit.prevent="addWatermark" enctype="multipart/form-data" class="flex flex-col max-w-2xl w-full">
         @if (!$result)
             @if ($image)

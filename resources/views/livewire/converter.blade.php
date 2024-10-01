@@ -1,4 +1,4 @@
-<section class="min-h-screen h-full py-12 flex items-center justify-center">
+<section class="min-h-screen h-full py-12 px-4 flex items-center justify-center">
     <form wire:submit.prevent="convertImages" enctype="multipart/form-data" class="flex flex-col max-w-2xl w-full">
 
         @if (count($converted))
@@ -9,6 +9,9 @@
                         class="py-2 px-4 bg-yellow-300 text-black font-semibold rounded-lg">Download</a>
                 </div>
             @endforeach
+        @else
+            <h1 class="mb-4 dark:text-white font-semibold text-3xl text-center" title="Unlimited Free Images Converter">
+                Unlimited Free Images Converter</h1>
         @endif
 
         @session('error')
@@ -41,6 +44,9 @@
                 <p class="text-red-600 py-2">{{ $message }}</p>
             @enderror
         </div>
+
+        <p class="dark:text-yellow-300 text-blue-700 mb-3">Please download your images right after conversion
+        </p>
 
         <button type="submit"
             class="btn btn-block mb-3 dark:hover:bg-blue-600 dark:hover:text-white bg-black text-white dark:bg-white dark:text-black"
