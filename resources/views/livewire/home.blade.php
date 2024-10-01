@@ -77,7 +77,7 @@
         <button class="btn bg-black text-black dark:bg-white dark:text-black" wire:loading wire:target="addWatermark"
             disabled>
             <span class="loading loading-spinner"></span>
-            loading
+            <span class="ml-1">Processing</span>
         </button>
     </form>
 </section>

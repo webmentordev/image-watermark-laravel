@@ -55,7 +55,7 @@
         <button class="btn bg-black text-black dark:bg-white dark:text-black" wire:loading wire:target="convertImages"
             disabled>
             <span class="loading loading-spinner"></span>
-            converting
+            <span class="ml-1">Converting...</span>
         </button>
     </form>
 </section>
