@@ -23,8 +23,11 @@
         </div>
 
         <div class="w-full mb-4 flex flex-col">
-            <label class="label-text mb-1" for="type">Pick type to convert</label>
-            <select class="select select-success w-full">
+            <label class="label-text mb-1" for="type">Pick type to convert @if ($type)
+                    {{ $type }}
+                @endif
+            </label>
+            <select class="select select-success w-full" wire:model.live="type">
                 <option value="png" disabled selected>PNG</option>
                 @foreach ($formats as $format)
                     <option value="{{ strtolower($format) }}">{{ strtoupper($format) }}</option>
