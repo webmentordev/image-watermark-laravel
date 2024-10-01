@@ -20,7 +20,6 @@ class Converter extends Component
     {
         return [
             'images' => ['required', 'array', 'max:5'],
-            'images.*' => ['required', 'image', 'min:1024']
         ];
     }
 
