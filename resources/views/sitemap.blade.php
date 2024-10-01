@@ -6,4 +6,10 @@
         <changefreq>weekly</changefreq>
         <priority>1.00</priority>
     </url>
+    <url>
+        <loc>{{ url('/') }}</loc>
+        <lastmod>2024-10-01T17:16:00+05:00</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>1.00</priority>
+    </url>
 </urlset>
