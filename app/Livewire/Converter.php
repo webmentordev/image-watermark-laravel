@@ -45,10 +45,10 @@ class Converter extends Component
             $this->validate();
             foreach ($this->images as $singleImage) {
                 $imagePath = $singleImage->store('converts');
-                $img = new Imagick(storage_path('app/private/' . $imagePath));
+                $img = new Imagick(storage_path('app/' . $imagePath));
                 $img->setImageFormat($this->type);
                 $convertedImage = 'converts/converted_' . pathinfo($singleImage->getClientOriginalName(), PATHINFO_FILENAME) . '.' . $this->type;
-                $img->writeImage(storage_path('app/private/' . $convertedImage));
+                $img->writeImage(storage_path('app/' . $convertedImage));
                 $img->clear();
                 $img->destroy();
                 $imageRecord = Convert::create([
@@ -57,9 +57,10 @@ class Converter extends Component
                 ]);
                 $this->converted[] = [
                     'name' => $singleImage->getClientOriginalName(),
-                    'url' => config('app.url') . '/storage/' . $imageRecord->converted_image
+                    'url' => config('app.url') . '/storage/' . $convertedImage
                 ];
             }
+
             session()->flash('success', 'All images have been converted!');
         } catch (Exception $e) {
             Log::error('Converting error: ' . $e->getMessage());
