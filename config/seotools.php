@@ -4,7 +4,7 @@ return [
         'defaults' => [
             'title'       => 'Unlimited Free Watermark Image Generator',
             'titleBefore' => false,
-            'description' => 'Create Unlimited Free Watermark Images with Our Easy-to-Use Generator - Perfect for Branding and Personalization!',
+            'description' => 'Create unlimited free centered watermarked images with customizable watermark opacity and size!',
             'separator'   => ' - ',
             'keywords'    => ['free watermarks', 'unlimited watermarks', 'watermark generator', 'branding images'],
             'canonical'   => null,
@@ -24,7 +24,7 @@ return [
     'opengraph' => [
         'defaults' => [
             'title'       => 'Unlimited Free Watermark Image Generator',
-            'description' => 'Create Unlimited Free Watermark Images with Our Easy-to-Use Generator - Perfect for Branding and Personalization!',
+            'description' => 'Create unlimited free centered watermarked images with customizable watermark opacity and size!',
             'url'         => null,
             'type'        => false,
             'site_name'   => false,
@@ -42,7 +42,7 @@ return [
     'json-ld' => [
         'defaults' => [
             'title'       => 'Unlimited Free Watermark Image Generator',
-            'description' => 'Create Unlimited Free Watermark Images with Our Easy-to-Use Generator - Perfect for Branding and Personalization!',
+            'description' => 'Create unlimited free centered watermarked images with customizable watermark opacity and size!',
             'url'         => null,
             'type'        => 'SoftwareApplication',
             'images'      => [
