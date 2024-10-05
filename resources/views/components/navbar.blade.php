@@ -3,7 +3,8 @@
         <a href="{{ route('home') }}" class="font-bold text-3xl">GroupHostMarker</a>
         <ul class="font-bold">
             <a href="{{ route('home') }}" class="px-4" wire:navigate>Watermarker</a>
-            <a href="{{ route('converter') }}" class="pl-4" wire:navigate>Converter</a>
+            <a href="{{ route('converter') }}" class="px-4" wire:navigate>Converter</a>
+            <a href="{{ route('remover') }}" class="pl-4" wire:navigate>BG Remover</a>
         </ul>
     </div>
 </nav>
