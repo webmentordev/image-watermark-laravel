@@ -60,7 +60,6 @@ class Remover extends Component
     {
         try {
             $this->validate();
-
             foreach ($this->images as $singleImage) {
                 $imagePath = $singleImage->store('bg_removed');
                 $img = new \Imagick(storage_path('app/private/' . $imagePath));
@@ -70,7 +69,7 @@ class Remover extends Component
                 $img->transparentPaintImage($cornerColorString, 0.0, $fuzz, false);
                 $img->setImageAlphaChannel(\Imagick::ALPHACHANNEL_ACTIVATE);
                 $img->setBackgroundColor(new \ImagickPixel('transparent'));
-                $bgremovedImage = 'bg_removed/bg-removed-' . rand(9, 999999) . '-' . pathinfo($singleImage->getClientOriginalName(), PATHINFO_FILENAME) . '.' . $this->type;
+                $bgremovedImage = 'bg_removed/bg-removed-' . rand(9, 999999) . '-' . pathinfo($singleImage->getClientOriginalName(), PATHINFO_FILENAME) . '.' . $singleImage->getClientOriginalExtension();
                 $img->writeImage(storage_path('app/private/' . $bgremovedImage));
                 $img->clear();
                 $img->destroy();
