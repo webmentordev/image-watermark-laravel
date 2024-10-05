@@ -63,13 +63,13 @@ class Remover extends Component
 
             foreach ($this->images as $singleImage) {
                 $imagePath = $singleImage->store('bg_removed');
-                $img = new Imagick(storage_path('app/private/' . $imagePath));
+                $img = new \Imagick(storage_path('app/private/' . $imagePath));
                 $cornerColor = $img->getImagePixelColor(0, 0)->getColor();
                 $cornerColorString = sprintf('rgb(%d,%d,%d)', $cornerColor['r'], $cornerColor['g'], $cornerColor['b']);
-                $fuzz = 0.1 * Imagick::getQuantumRange()['quantumRangeLong'];
+                $fuzz = 0.1 * \Imagick::getQuantumRange()['quantumRangeLong'];
                 $img->transparentPaintImage($cornerColorString, 0.0, $fuzz, false);
-                $img->setImageAlphaChannel(Imagick::ALPHACHANNEL_ACTIVATE);
-                $img->setBackgroundColor(new ImagickPixel('transparent'));
+                $img->setImageAlphaChannel(\Imagick::ALPHACHANNEL_ACTIVATE);
+                $img->setBackgroundColor(new \ImagickPixel('transparent'));
                 $bgremovedImage = 'bg_removed/bg-removed-' . rand(9, 999999) . '-' . pathinfo($singleImage->getClientOriginalName(), PATHINFO_FILENAME) . '.' . $this->type;
                 $img->writeImage(storage_path('app/private/' . $bgremovedImage));
                 $img->clear();
