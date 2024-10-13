@@ -67,9 +67,9 @@ class Remover extends Component
                 $cornerColor = $img->getImagePixelColor(0, 0)->getColor();
                 $cornerColorString = sprintf('rgb(%d,%d,%d)', $cornerColor['r'], $cornerColor['g'], $cornerColor['b']);
                 $fuzz = 0.1 * Imagick::getQuantumRange()['quantumRangeLong'];
-                $img->setImageFuzz($fuzz);
-                $img->transparentPaintImage(new ImagickPixel($cornerColorString), 0.0, $fuzz, false);
+                $img->transparentPaintImage($cornerColorString, 0.0, $fuzz, false);
                 $img->setImageAlphaChannel(Imagick::ALPHACHANNEL_ACTIVATE);
+                $img->setBackgroundColor(new ImagickPixel('transparent'));
                 $bgremovedImage = 'bg_removed/bg-removed-' . rand(9, 999999) . '-' . pathinfo($singleImage->getClientOriginalName(), PATHINFO_FILENAME) . '.' . $singleImage->getClientOriginalExtension();
                 $img->writeImage(storage_path('app/private/' . $bgremovedImage));
                 $img->clear();
@@ -86,7 +86,8 @@ class Remover extends Component
             session()->flash('success', 'Background removed from all images!');
         } catch (\Exception $e) {
             Log::error('BGRemoval error: ' . $e->getMessage());
-            session()->flash('error', 'An error occurred during background removal. Please check the file formats and sizes, and try again.');
+            $errorMessage = 'An error occurred during background removal. Please check the file formats and sizes, and try again. Error details: ' . $e->getMessage();
+            session()->flash('error', $errorMessage);
         }
     }
 }
