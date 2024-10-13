@@ -59,6 +59,7 @@ class Remover extends Component
 
     public function removeBG()
     {
+
         try {
             $this->validate();
             foreach ($this->images as $singleImage) {
@@ -70,14 +71,17 @@ class Remover extends Component
                     $img->getImagePixelColor(0, $img->getImageHeight() - 1)->getColor(),
                     $img->getImagePixelColor($img->getImageWidth() - 1, $img->getImageHeight() - 1)->getColor(),
                 ];
-                $fuzz = 0.05 * Imagick::getQuantumRange()['quantumRangeLong'];
-
-                foreach ($cornerColors as $cornerColor) {
-                    $cornerColorString = sprintf('rgb(%d,%d,%d)', $cornerColor['r'], $cornerColor['g'], $cornerColor['b']);
-                    $img->transparentPaintImage($cornerColorString, 0.0, $fuzz, false);
-                }
+                $avgColor = [
+                    'r' => (array_sum(array_column($cornerColors, 'r')) / 4),
+                    'g' => (array_sum(array_column($cornerColors, 'g')) / 4),
+                    'b' => (array_sum(array_column($cornerColors, 'b')) / 4),
+                ];
+                $avgColorString = sprintf('rgb(%d,%d,%d)', $avgColor['r'], $avgColor['g'], $avgColor['b']);
+                $fuzz = 0.1 * Imagick::getQuantumRange()['quantumRangeLong'];
+                $img->transparentPaintImage($avgColorString, 0.0, $fuzz, false);
                 $img->setImageAlphaChannel(Imagick::ALPHACHANNEL_ACTIVATE);
                 $img->setBackgroundColor(new ImagickPixel('transparent'));
+                $img->thresholdImage(0.1 * Imagick::getQuantumRange()['quantumRangeLong']);
                 $bgremovedImage = 'bg_removed/bg-removed-' . rand(9, 999999) . '-' . pathinfo($singleImage->getClientOriginalName(), PATHINFO_FILENAME) . '.' . $singleImage->getClientOriginalExtension();
                 $img->writeImage(storage_path('app/private/' . $bgremovedImage));
                 $img->clear();
