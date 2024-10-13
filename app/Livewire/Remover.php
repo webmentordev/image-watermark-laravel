@@ -62,13 +62,21 @@ class Remover extends Component
             $this->validate();
             foreach ($this->images as $singleImage) {
                 $imagePath = $singleImage->store('bg_removed');
-                $img = new \Imagick(storage_path('app/private/' . $imagePath));
-                $cornerColor = $img->getImagePixelColor(0, 0)->getColor();
-                $cornerColorString = sprintf('rgb(%d,%d,%d)', $cornerColor['r'], $cornerColor['g'], $cornerColor['b']);
-                $fuzz = 0.1 * \Imagick::getQuantumRange()['quantumRangeLong'];
-                $img->transparentPaintImage($cornerColorString, 0.0, $fuzz, false);
-                $img->setImageAlphaChannel(\Imagick::ALPHACHANNEL_ACTIVATE);
-                $img->setBackgroundColor(new \ImagickPixel('transparent'));
+                $img = new Imagick(storage_path('app/private/' . $imagePath));
+                $cornerColors = [
+                    $img->getImagePixelColor(0, 0)->getColor(),
+                    $img->getImagePixelColor($img->getImageWidth() - 1, 0)->getColor(),
+                    $img->getImagePixelColor(0, $img->getImageHeight() - 1)->getColor(),
+                    $img->getImagePixelColor($img->getImageWidth() - 1, $img->getImageHeight() - 1)->getColor(),
+                ];
+                $fuzz = 0.05 * Imagick::getQuantumRange()['quantumRangeLong'];
+
+                foreach ($cornerColors as $cornerColor) {
+                    $cornerColorString = sprintf('rgb(%d,%d,%d)', $cornerColor['r'], $cornerColor['g'], $cornerColor['b']);
+                    $img->transparentPaintImage($cornerColorString, 0.0, $fuzz, false);
+                }
+                $img->setImageAlphaChannel(Imagick::ALPHACHANNEL_ACTIVATE);
+                $img->setBackgroundColor(new ImagickPixel('transparent'));
                 $bgremovedImage = 'bg_removed/bg-removed-' . rand(9, 999999) . '-' . pathinfo($singleImage->getClientOriginalName(), PATHINFO_FILENAME) . '.' . $singleImage->getClientOriginalExtension();
                 $img->writeImage(storage_path('app/private/' . $bgremovedImage));
                 $img->clear();
