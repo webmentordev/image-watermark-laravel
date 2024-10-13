@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use Imagick;
+use ImagickPixel;
 use App\Models\Removal;
 use Livewire\Component;
 use Livewire\WithFileUploads;
