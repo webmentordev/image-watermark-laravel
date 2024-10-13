@@ -77,8 +77,12 @@ class Remover extends Component
                     'b' => (array_sum(array_column($cornerColors, 'b')) / 4),
                 ];
                 $avgColorString = sprintf('rgb(%d,%d,%d)', $avgColor['r'], $avgColor['g'], $avgColor['b']);
-                $fuzz = 0.01 * Imagick::getQuantumRange()['quantumRangeLong'];
+                $fuzz = 0.02 * Imagick::getQuantumRange()['quantumRangeLong'];
                 $img->transparentPaintImage($avgColorString, 0.0, $fuzz, false);
+                if (!$this->isBackgroundRemoved($img)) {
+                    $fuzz = 0.05 * Imagick::getQuantumRange()['quantumRangeLong'];
+                    $img->transparentPaintImage($avgColorString, 0.0, $fuzz, false);
+                }
                 $img->setImageAlphaChannel(Imagick::ALPHACHANNEL_ACTIVATE);
                 $img->setBackgroundColor(new ImagickPixel('transparent'));
                 $bgremovedImage = 'bg_removed/bg-removed-' . rand(9, 999999) . '-' . pathinfo($singleImage->getClientOriginalName(), PATHINFO_FILENAME) . '.' . $singleImage->getClientOriginalExtension();
